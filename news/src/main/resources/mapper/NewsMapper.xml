@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.mapper.NewsMapper">
+
+    <!-- 查询所有新闻 -->
+    <select id="list"  resultType="Article">
+        select id,title,content,cdate,thumbnail from articles order by id desc
+    </select>
+    
+    <!-- 根据id查询 -->
+    <select id="getById" parameterType="Integer" resultType="Article">
+        select id,title,content,cdate,thumbnail from articles where id=#{id}
+    </select>
+
+    <!-- 插入一个新闻 -->
+    <insert id="insert" parameterType="Article" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into articles (title,content,thumbnail) values(#{title},#{content},#{thumbnail})
+    </insert>
+
+    <!-- 修改新闻 -->
+    <update id="update" parameterType="Article" >
+        update articles set title=#{title},content=#{content}, thumbnail=#{thumbnail} where id=#{id}
+    </update>
+
+    <!-- 删除新闻 -->
+    <delete id="delete" parameterType="Integer" >
+        delete  from articles where id=#{id}
+    </delete>
+</mapper>
